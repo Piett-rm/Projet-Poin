@@ -51,18 +51,7 @@ function is_adminitrateur($IdPersonne)
 
     <?php
     //var de conexion à la base de donnée
-    $db_host = "localhost";
-    $db_user = "root";
-    $db_password = "";
-    $db_database = "poin_perso";
-    $db_port = "3307";
-    //connexion à la base
-    $conn = mysqli_connect($db_host, $db_user, $db_password, $db_database, $db_port);
-    if (!$conn) { //test de connexion à la base
-        die("Erreur de connexion à la base de données");
-    } else {
-        echo 'connexion réussie<br>';
-    }
+    include '../connexion.php';
     ?>
     <div id="en-tete">
         <?php include("./en-tete.php"); ?>
