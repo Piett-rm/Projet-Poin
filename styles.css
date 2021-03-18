@@ -1,0 +1,38 @@
+#en-tete{
+    /*background-color: pink;*/
+    display: flex;
+    justify-content: space-between;
+    background-color: pink;
+    border-width:1px;
+    border-style:groove;
+    border-color:blue;
+}
+
+.login{
+    /*background-color : grey;*/
+    display:flex;
+    border-width:1px;
+    flex-direction: column;
+    border-style:dotted;
+    border-color:black;
+    justify-content: center;
+
+}
+
+#corps{
+    display : flex;
+    justify-content: space-between;
+    border-width:1px;
+    border-style:dotted;
+    border-color:black;
+    
+}
+
+#news{
+    display:flex;
+    background-color:red;
+    border-width:1px;
+    border-style:dotted;
+    border-color:black;
+}
+
