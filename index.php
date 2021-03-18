@@ -15,7 +15,7 @@ if (isset($_GET['logout'])) {
 
 <head>
 	<meta charset="UTF-8">
-	<title> Accueil </title>
+	<title> Accueil Paul </title>
 	<link rel="stylesheet" href="styles.css" />
 </head>
 
