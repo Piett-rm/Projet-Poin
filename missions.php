@@ -46,6 +46,21 @@ function is_adminitrateur($superviseur) #fait
     };
 }
 
+function is_volontaire()
+{
+    $sql = "SELECT IdPersonne FROM volontaire WHERE IdPersonne=" . $_SESSION['IdPersonne'];
+    global $conn;
+    $requete = mysqli_query($conn, $sql);
+    if ($requete != FALSE){
+        $row = mysqli_fetch_assoc($requete);
+        
+        if( !empty( $row['IdPersonne'])){
+            return TRUE;
+        }
+    }
+    return false;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -109,8 +124,12 @@ function is_adminitrateur($superviseur) #fait
                     echo '<td>' . $row['Description'] . '</td>';
                     echo '<td>' . $row['Numero_rue'] . ' ' . $row['Rue'] . '</td>';
                     echo '<td>' . $row['Nombre_Volontaire'] . '</td>';
-                    echo '<td>' . '<a href="./confirmation.php?i=t&mission=' . $row['IdMission'] . '">S\'inscrire</a> </td>'; //i(nscription)=t(rue)&mission=[idMission]
-
+                    if (is_volontaire()){
+                        echo '<td>' . '<a href="./confirmation.php?i=t&mission=' . $row['IdMission'] . '">S\'inscrire</a> </td>'; //i(nscription)=t(rue)&mission=[idMission]
+                    }
+                    else {
+                        echo '<td></td>';
+                    }
                     if (is_superviseur()) {
                         echo '<td><a href="">Editer</a></td>';
                         echo '<td><a href="">Supprimer</a></td>';
@@ -139,7 +158,7 @@ function is_adminitrateur($superviseur) #fait
                     <label for="Rue">Nom de la rue</label>
                     <input type="text" id="Rue" name="Rue"><br>
                     <label for="Address">Numéro du batîment</label>
-                    <input type="text" id="Address" name="Address"><br>
+                    <input type="number" id="Address" name="Address"><br>
                 </fieldset>
                 <label for="Description">Description de la Mission</label>
                 <input type="text" id="Description" name="Description"><br>
@@ -158,19 +177,43 @@ function is_adminitrateur($superviseur) #fait
                     echo "Il manque une valeur pour " . $key . "<br>";
                 }
             }
+            if (! date_futur($_POST['Date'])){
+                $erreur = True;
+                echo "La date est déjà passée.<br>";
+            }
+            if (! test_string($_POST['Ville'], 58)){
+                $erreur = True;
+                echo "Le nom de la ville est trop grand.<br>";
+            }
+            if (! test_string($_POST['Rue'], 164)){
+                $erreur = True;
+                echo "Le nom de la rue est trop grand.<br>";
+            }
+            if (! test_string($_POST['Description'], 500)){
+                $erreur = True;
+                echo "La Description est limitée à 500 lettres.<br>";
+            }
             if ($erreur){
                 echo '<form action="./missions.php?vu=2" method="post">';
                 echo '<input type="submit" value="Retour vers la création de Mission">';
                 echo '</form>';
             }
             else{
-                """
+                /*
                 Vérifié si toute les informations sont présentes v
                     renvois case 2 si des infos sont absente v
 		                peut-être sauvegarder les infos (si temps)
-                Vérifié si toute les informations sont valides. (prio)
+                Vérifié si toute les informations sont valides. v
                 insert dans BD x
-                """
+                */
+                $id = is_superviseur();
+                $sql = "insert into mission(Description, Nombre_Volontaire, Date_Mission, Numero_rue, Rue, Ville, Points, IdSuperviseur) values('";
+                $sql = $sql . $_POST['Description'] . "', " . $_POST['Nombre_v'] . ", '" . $_POST['Date'] . "', " . $_POST['Address'] . ", '" . $_POST['Rue'];
+                $sql = $sql . "', '" . $_POST['Ville'] . "', " . $_POST['Points'] . ", " . $id . ");";
+                $requete = mysqli_query($conn, $sql);
+                if ($requete == FALSE){
+                    echo mysqli_error($conn);
+                }
             }
             break;
     }
@@ -179,3 +222,24 @@ function is_adminitrateur($superviseur) #fait
 </body>
 
 </html>
+
+<?php 
+    
+function date_futur($date_string)
+{
+    $date_time = new DateTime($date_string);
+    $date_now = new DateTime("now");
+    if( $date_now <= $date_time){
+        return TRUE;
+    }
+    return FALSE;
+}
+
+function test_string($string,$taille)
+{
+    if (strlen($string) <= $taille){
+        return TRUE;
+    }
+    return FALSE;
+}
+?>

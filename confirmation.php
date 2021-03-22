@@ -38,6 +38,11 @@ if (isset($_GET['logout'])) {
         die("<br>Echec d'execution de la requete : " . $sql);
     } else {
         echo "Inscription validée";
+        $sql = "UPDATE mission set  Nombre_Volontaire = Nombre_Volontaire - 1 WHERE IdMission = " . $_GET['mission'];
+        $resultat = mysqli_query($conn, $sql);
+        if ($resultat == FALSE) {
+            die("<br>Echec d'execution de la requete : " . $sql);
+        }
     }
 
 
