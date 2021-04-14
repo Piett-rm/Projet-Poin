@@ -17,9 +17,9 @@ if (isset($_POST['Mots_de_passe'])) {
         if (mysqli_num_rows($resultat) == 1) {
 
             $row = mysqli_fetch_array($resultat);
-            $_SESSION['id_user'] = $row['IdPersonne'];
-            $_SESSION['nom_user'] = $row['Nom'];
-            $_SESSION['prenom_user'] = $row['Prenom'];
+            $_SESSION['IdPersonne'] = $row['IdPersonne'];
+            $_SESSION['Nom'] = $row['Nom'];
+            $_SESSION['Prenom'] = $row['Prenom'];
             $_SESSION['type'] = "volontaire";
 
             $url = $_SERVER['HTTP_REFERER'];
