@@ -1,6 +1,11 @@
 <?php
 session_start(); //pour demarrer la session
 
+if (!isset($_SESSION['type'])) {
+    header('location: ./index.php');
+    die();
+}
+
 // si l utilisateur clique sur se deconnecter alors on detruit la session et on efface la varible $_SESSION
 if (isset($_GET['logout'])) {
     if ($_GET['logout'] == "1") {
@@ -15,14 +20,14 @@ if (!isset($_GET['vu'])) {
 
 function is_superviseur() #fait
 { #renvoit l'IdSuperviseur si l'utilisateur est un superviseur, sinon renvoit 0
-    $sql = 'SELECT IdPersonne FROM superviseur WHERE IdPersonne=' . $_SESSION['IdPersonne'];
+    $sql = 'SELECT IdPersonne, IdSuperviseur FROM superviseur WHERE IdPersonne=' . $_SESSION['id_user'];
     global $conn;
     $requete = mysqli_query($conn, $sql);
     if ($requete != FALSE) {
         $row = mysqli_fetch_assoc($requete);
         
-        if( !empty( $row['IdPersonne'])){
-            return $row['IdPersonne'];
+        if( !empty( $row['IdSuperviseur'])){
+            return $row['IdSuperviseur'];
         }
     }
     return 0;
@@ -48,7 +53,7 @@ function is_adminitrateur($superviseur) #fait
 
 function is_volontaire()
 {
-    $sql = "SELECT IdPersonne FROM volontaire WHERE IdPersonne=" . $_SESSION['IdPersonne'];
+    $sql = "SELECT IdPersonne FROM volontaire WHERE IdPersonne=" . $_SESSION['id_user'];
     global $conn;
     $requete = mysqli_query($conn, $sql);
     if ($requete != FALSE){
@@ -83,7 +88,7 @@ function is_volontaire()
         <?php include("./en-tete.php"); ?>
     </div>
     <?php
-    echo '<br>Bienvenue sur la page des missions' . ' ' . $_SESSION['Prenom'] . ' ' . $_SESSION['Nom'] . '<br><br>';
+    echo '<br>Bienvenue sur la page des missions' . ' ' . $_SESSION['prenom_user'] . ' ' . $_SESSION['nom_user'] . '<br><br>';
 
     include("./nav-bar.php");
     switch ($_GET['vu']) 
@@ -116,6 +121,7 @@ function is_volontaire()
             <?php
 
                 while ($row = mysqli_fetch_assoc($requete)) {
+                    
                     echo '<tr>';
 
                     echo '<td>' . $row['Date_Mission'] . '</td>';
@@ -130,12 +136,13 @@ function is_volontaire()
                     else {
                         echo '<td></td>';
                     }
-                    if (is_superviseur()) {
+                    if ($_SESSION['id_user'] == is_superviseur()) {
                         echo '<td><a href="">Editer</a></td>';
                         echo '<td><a href="">Supprimer</a></td>';
                     };
 
                     echo '</tr>';
+                
                 }
             echo '</table>';
             
@@ -216,6 +223,10 @@ function is_volontaire()
                 }
             }
             break;
+
+        case "4":
+
+            break;
     }
         ?>
 
@@ -242,4 +253,13 @@ function test_string($string,$taille)
     }
     return FALSE;
 }
+
+
+
+/* Plan de modification ;
+    selection des missions dans le même departement que le volontaire inutile
+    selection des missions que le superviseur a créé (si non administrateur) fait
+    modification et suppression des missions
+*/
 ?>
+
