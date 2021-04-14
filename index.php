@@ -14,12 +14,12 @@ if (isset($_GET['logout'])) {
 <html lang="fr">
 
 <head>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Accueil</title>
-    <link rel="stylesheet" href="index.css" />
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Accueil</title>
+	<link rel="stylesheet" href="index.css" />
 </head>
 
 <body>
@@ -54,10 +54,11 @@ on va faire le carré de connexion
 		}
 	}
 
-	if (isset($_SESSION['IdPersonne'])) { //si on est connecté : on affiche les missions
+	if (isset($_SESSION['id_user'])) { //si on est connecté : on affiche les missions
 
-		include("./nav-bar.php");
-	} ?>
+		include('nav-bar.php');
+	}
+	?>
 	<div id="corps">
 		<div id="explications">
 			<p>Notre projet a pour but écologique de dépolluer les rues, villages, villes du Liban et est basé sur le volontariat récompensé. Il permet également aux personnes les plus démunies d'accéder à internet et également d’avoir des réductions pour les transports en commun (bus, taxis collectifs).<br><br>
@@ -75,7 +76,8 @@ on va faire le carré de connexion
 				Pandente itaque viam fatorum sorte tristissima, <br>qua praestitutum erat eum vita et imperio spoliari,<br> itineribus interiectis permutatione iumentorum emensis venit Petobionem <br>oppidum Noricorum, ubi reseratae sunt insidiarum latebrae omnes<br>, et Barbatio repente apparuit comes, qui sub eo domesticis praefuit, cum Apodemio agente in <br>rebus milites ducens, quos beneficiis suis oppigneratos elegerat imperator certus nec praemiis nec miseratione ulla posse deflecti.
 				<br>
 
-				Metuentes igitur idem latrones Lycaoniam magna parte <br>campestrem cum se inpares nostris fore congressione <br>stataria documentis frequentibus scirent, tramitibus deviis petivere Pamphyliam <br>diu quidem intactam sed timore populationum et caedium, <br>milite per omnia diffuso propinqua, magnis undique praesidiis conmunitam.</p>
+				Metuentes igitur idem latrones Lycaoniam magna parte <br>campestrem cum se inpares nostris fore congressione <br>stataria documentis frequentibus scirent, tramitibus deviis petivere Pamphyliam <br>diu quidem intactam sed timore populationum et caedium, <br>milite per omnia diffuso propinqua, magnis undique praesidiis conmunitam.
+			</p>
 		</div>
 
 	</div>

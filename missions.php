@@ -25,8 +25,8 @@ function is_superviseur() #fait
     $requete = mysqli_query($conn, $sql);
     if ($requete != FALSE) {
         $row = mysqli_fetch_assoc($requete);
-        
-        if( !empty( $row['IdSuperviseur'])){
+
+        if (!empty($row['IdSuperviseur'])) {
             return $row['IdSuperviseur'];
         }
     }
@@ -37,13 +37,13 @@ function is_superviseur() #fait
 function is_adminitrateur($superviseur) #fait
 { #renvoit l'IdSuperviseur si l'IdSuperviseur est un administrateur, sinon renvoit 0
     if ($superviseur) {
-        $sql = 'SELECT IdSuperviseur FROM superviseur WHERE Administrateur=1 and IdSuperviseur ='. $superviseur;
+        $sql = 'SELECT IdSuperviseur FROM superviseur WHERE Administrateur=1 and IdSuperviseur =' . $superviseur;
         global $conn;
         $requete = mysqli_query($conn, $sql);
         if ($requete != FALSE) {
             $row = mysqli_fetch_assoc($requete);
-            
-            if( !empty( $row['IdSuperviseur'])){
+
+            if (!empty($row['IdSuperviseur'])) {
                 return $row['IdSuperviseur'];
             }
         }
@@ -56,10 +56,10 @@ function is_volontaire()
     $sql = "SELECT IdPersonne FROM volontaire WHERE IdPersonne=" . $_SESSION['id_user'];
     global $conn;
     $requete = mysqli_query($conn, $sql);
-    if ($requete != FALSE){
+    if ($requete != FALSE) {
         $row = mysqli_fetch_assoc($requete);
-        
-        if( !empty( $row['IdPersonne'])){
+
+        if (!empty($row['IdPersonne'])) {
             return TRUE;
         }
     }
@@ -88,18 +88,18 @@ function is_volontaire()
         <?php include("./en-tete.php"); ?>
     </div>
     <?php
+    include("./nav-bar.php");
     echo '<br>Bienvenue sur la page des missions' . ' ' . $_SESSION['prenom_user'] . ' ' . $_SESSION['nom_user'] . '<br><br>';
 
-    include("./nav-bar.php");
-    switch ($_GET['vu']) 
-    {
-        case "1": 
+
+    switch ($_GET['vu']) {
+        case "1":
 
             $sql = "Select * FROM mission WHERE Date_Mission > CURRENT_DATE ORDER BY Date_Mission";
             $requete = mysqli_query($conn, $sql);
             //on affiche les missions
 
-            ?>
+    ?>
             <table border=1>
                 <tr>
                     <td>Date</td>
@@ -118,10 +118,10 @@ function is_volontaire()
                     ?>
                 </tr>
 
-            <?php
+                <?php
 
                 while ($row = mysqli_fetch_assoc($requete)) {
-                    
+
                     echo '<tr>';
 
                     echo '<td>' . $row['Date_Mission'] . '</td>';
@@ -130,10 +130,9 @@ function is_volontaire()
                     echo '<td>' . $row['Description'] . '</td>';
                     echo '<td>' . $row['Numero_rue'] . ' ' . $row['Rue'] . '</td>';
                     echo '<td>' . $row['Nombre_Volontaire'] . '</td>';
-                    if (is_volontaire()){
+                    if (is_volontaire()) {
                         echo '<td>' . '<a href="./confirmation.php?i=t&mission=' . $row['IdMission'] . '">S\'inscrire</a> </td>'; //i(nscription)=t(rue)&mission=[idMission]
-                    }
-                    else {
+                    } else {
                         echo '<td></td>';
                     }
                     if ($_SESSION['id_user'] == is_superviseur()) {
@@ -142,113 +141,112 @@ function is_volontaire()
                     };
 
                     echo '</tr>';
-                
                 }
-            echo '</table>';
-            
-            if (is_superviseur()) {
-                echo '<a href="./missions.php?vu=2">Nouvelle Mission</a>';
-            }
-            break;
+                echo '</table>';
 
-        case "2":
-            ?>
-            <form action="./missions.php?vu=3" method="post">
-                <label for="Date">Date</label>
-                <input type="date" id="Date" name="Date"><br>
-                <label for="Nombre_v">Nombre de volontaires</label>
-                <input type="number" id="Nombre_v" name="Nombre_v"><br>
-                <fieldset>  <!-- un peu de CSS sera utile -->
-                    <legend> Lieu du rendez-vous </legend>
-                    <label for="Ville">Ville</label>
-                    <input type="text" id="Ville" name="Ville"><br>
-                    <label for="Rue">Nom de la rue</label>
-                    <input type="text" id="Rue" name="Rue"><br>
-                    <label for="Address">Numéro du batîment</label>
-                    <input type="number" id="Address" name="Address"><br>
-                </fieldset>
-                <label for="Description">Description de la Mission</label>
-                <input type="text" id="Description" name="Description"><br>
-                <label for="Points">Valeur en nombre de points</label>
-                <input type="number" id="Points" name="Points"><br>
-                <input type="submit" value="Valider">
-            </form>
-            <?php
-            break;
+                if (is_superviseur()) {
+                    echo '<a href="./missions.php?vu=2">Nouvelle Mission</a>';
+                }
+                break;
 
-        case "3":
-            $erreur = False;
-            foreach ($_POST as $key => $Value) {
-                if (empty($Value)) {
+            case "2":
+                ?>
+                <form action="./missions.php?vu=3" method="post">
+                    <label for="Date">Date</label>
+                    <input type="date" id="Date" name="Date"><br>
+                    <label for="Nombre_v">Nombre de volontaires</label>
+                    <input type="number" id="Nombre_v" name="Nombre_v"><br>
+                    <fieldset>
+                        <!-- un peu de CSS sera utile -->
+                        <legend> Lieu du rendez-vous </legend>
+                        <label for="Ville">Ville</label>
+                        <input type="text" id="Ville" name="Ville"><br>
+                        <label for="Rue">Nom de la rue</label>
+                        <input type="text" id="Rue" name="Rue"><br>
+                        <label for="Address">Numéro du batîment</label>
+                        <input type="number" id="Address" name="Address"><br>
+                    </fieldset>
+                    <label for="Description">Description de la Mission</label>
+                    <input type="text" id="Description" name="Description"><br>
+                    <label for="Points">Valeur en nombre de points</label>
+                    <input type="number" id="Points" name="Points"><br>
+                    <input type="submit" value="Valider">
+                </form>
+        <?php
+                break;
+
+            case "3":
+                $erreur = False;
+                foreach ($_POST as $key => $Value) {
+                    if (empty($Value)) {
+                        $erreur = True;
+                        echo "Il manque une valeur pour " . $key . "<br>";
+                    }
+                }
+                if (!date_futur($_POST['Date'])) {
                     $erreur = True;
-                    echo "Il manque une valeur pour " . $key . "<br>";
+                    echo "La date est déjà passée.<br>";
                 }
-            }
-            if (! date_futur($_POST['Date'])){
-                $erreur = True;
-                echo "La date est déjà passée.<br>";
-            }
-            if (! test_string($_POST['Ville'], 58)){
-                $erreur = True;
-                echo "Le nom de la ville est trop grand.<br>";
-            }
-            if (! test_string($_POST['Rue'], 164)){
-                $erreur = True;
-                echo "Le nom de la rue est trop grand.<br>";
-            }
-            if (! test_string($_POST['Description'], 500)){
-                $erreur = True;
-                echo "La Description est limitée à 500 lettres.<br>";
-            }
-            if ($erreur){
-                echo '<form action="./missions.php?vu=2" method="post">';
-                echo '<input type="submit" value="Retour vers la création de Mission">';
-                echo '</form>';
-            }
-            else{
-                /*
+                if (!test_string($_POST['Ville'], 58)) {
+                    $erreur = True;
+                    echo "Le nom de la ville est trop grand.<br>";
+                }
+                if (!test_string($_POST['Rue'], 164)) {
+                    $erreur = True;
+                    echo "Le nom de la rue est trop grand.<br>";
+                }
+                if (!test_string($_POST['Description'], 500)) {
+                    $erreur = True;
+                    echo "La Description est limitée à 500 lettres.<br>";
+                }
+                if ($erreur) {
+                    echo '<form action="./missions.php?vu=2" method="post">';
+                    echo '<input type="submit" value="Retour vers la création de Mission">';
+                    echo '</form>';
+                } else {
+                    /*
                 Vérifié si toute les informations sont présentes v
                     renvois case 2 si des infos sont absente v
 		                peut-être sauvegarder les infos (si temps)
                 Vérifié si toute les informations sont valides. v
                 insert dans BD x
                 */
-                $id = is_superviseur();
-                $sql = "insert into mission(Description, Nombre_Volontaire, Date_Mission, Numero_rue, Rue, Ville, Points, IdSuperviseur) values('";
-                $sql = $sql . $_POST['Description'] . "', " . $_POST['Nombre_v'] . ", '" . $_POST['Date'] . "', " . $_POST['Address'] . ", '" . $_POST['Rue'];
-                $sql = $sql . "', '" . $_POST['Ville'] . "', " . $_POST['Points'] . ", " . $id . ");";
-                $requete = mysqli_query($conn, $sql);
-                if ($requete == FALSE){
-                    echo mysqli_error($conn);
+                    $id = is_superviseur();
+                    $sql = "insert into mission(Description, Nombre_Volontaire, Date_Mission, Numero_rue, Rue, Ville, Points, IdSuperviseur) values('";
+                    $sql = $sql . $_POST['Description'] . "', " . $_POST['Nombre_v'] . ", '" . $_POST['Date'] . "', " . $_POST['Address'] . ", '" . $_POST['Rue'];
+                    $sql = $sql . "', '" . $_POST['Ville'] . "', " . $_POST['Points'] . ", " . $id . ");";
+                    $requete = mysqli_query($conn, $sql);
+                    if ($requete == FALSE) {
+                        echo mysqli_error($conn);
+                    }
                 }
-            }
-            break;
+                break;
 
-        case "4":
+            case "4":
 
-            break;
-    }
+                break;
+        }
         ?>
 
 </body>
 
 </html>
 
-<?php 
-    
+<?php
+
 function date_futur($date_string)
 {
     $date_time = new DateTime($date_string);
     $date_now = new DateTime("now");
-    if( $date_now <= $date_time){
+    if ($date_now <= $date_time) {
         return TRUE;
     }
     return FALSE;
 }
 
-function test_string($string,$taille)
+function test_string($string, $taille)
 {
-    if (strlen($string) <= $taille){
+    if (strlen($string) <= $taille) {
         return TRUE;
     }
     return FALSE;
@@ -262,4 +260,3 @@ function test_string($string,$taille)
     modification et suppression des missions
 */
 ?>
-

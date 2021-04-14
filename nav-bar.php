@@ -18,14 +18,14 @@
 					?>
 
 						<li><a href="./index.php">Acceuil</a></li>
-						<li><a href="missions.php">Missions</a></li>
+						<li><a href="./missions.php">Missions</a></li>
 						<li><a href="#">Récompenses</a></li>
-						<li><a href="mon_compte.php">Mon compte</a></li>
-						<li><a href="#">Planning</a></li>
-						<li><a href="#">Historique</a></li>
+						<li><a href="./mon_compte.php">Mon compte</a></li>
+						<li><a href="./planing.php">Planning</a></li>
+						<li><a href="./historique.php">Historique</a></li>
 
 						<?php
-						if ($_SESSION['type'] == "admin") {
+						if ($_SESSION['type'] == "administrateur") {
 						?>
 
 

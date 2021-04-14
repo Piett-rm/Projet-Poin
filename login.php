@@ -25,18 +25,26 @@ if (isset($_POST['Mots_de_passe'])) {
                 if (mysqli_num_rows($resultat) == 1) {
 
                     $_SESSION['type'] = "volontaire";
-                }
-            }/* else { //sinon, on check si c'est un superviseur
-                $sql = 'SELECT * from superviseur where IdSuperviseur=\'1\'';
-                $resultat = mysqli_query($conn, $sql);
-                if ($resultat!= FALSE) {
-                    $_SESSION['type'] = "A";
-                    if (mysqli_num_rows($resultat) == 1) {
+                } else { //sinon, on check si c'est un superviseur
+                    $sql = 'SELECT * from superviseur where IdPersonne=' . $_SESSION['id_user'];
+                    $resultat = mysqli_query($conn, $sql);
+                    if ($resultat) {
+                        if (mysqli_num_rows($resultat) == 1) {
+                            //on est un superviseur
+                            $row = mysqli_fetch_assoc($resultat);
+                            if ($row['Administrateur'] == 0){
+                                $_SESSION['type'] = "superviseur";
 
-                        $_SESSION['type'] = "Superviseur";
+                            } else {
+
+                                $_SESSION['type'] = "administrateur";
+                            }
+
+
+                        }
                     }
                 }
-            }*///ne marche pas
+            }
 
             $url = $_SERVER['HTTP_REFERER'];
             $tableau = explode("/", $url, -1);
