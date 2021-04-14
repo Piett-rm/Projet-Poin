@@ -19,7 +19,7 @@
     </div>
 
 <?php
-    $sql = "SELECT * FROM personne WHERE IdPersonne='1'" ;
+    $sql = "SELECT * FROM personne WHERE IdPersonne='1'";
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         die("<br>Echec d'execution de la requete : " . $sql);
