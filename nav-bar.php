@@ -1,10 +1,57 @@
-<table border=1>
-			<tr>
-				<td><a href="./index.php">Accueil</a></td>
-				<td><a href="./missions.php">Les missions</a></td>
-				<td><a href="#">Récompenses</a></td>
-				<td><a href="#">Mon compte</a></td>
-				<td><a href="./planing.php">Planning</a></td>
-				<td><a href="./historique.php">Historique</a></td>
-			</tr>
-		</table>
+<div class="navbar">
+	<div class="navbar-inner">
+		<div class="container">
+			<a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			</a>
+
+			<div class="nav-collapse">
+				<ul class="nav">
+
+
+
+
+					<?php
+					if (isset($_SESSION['type'])) {
+					?>
+
+						<li><a href="./index.php">Acceuil</a></li>
+						<li><a href="missions.php">Missions</a></li>
+						<li><a href="#">Récompenses</a></li>
+						<li><a href="mon_compte.php">Mon compte</a></li>
+						<li><a href="#">Planning</a></li>
+						<li><a href="#">Historique</a></li>
+
+						<?php
+						if ($_SESSION['type'] == "admin") {
+						?>
+
+
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration</a>
+								<ul class="dropdown-menu">
+									<li><a href="#">lien 1</a></li>
+									<li><a href="#">lien 2</a></li>
+									<li><a href="#">lien 3</a></li>
+
+
+								</ul>
+							</li>
+
+					<?php
+						}
+					}
+					?>
+
+
+
+
+
+				</ul>
+
+			</div><!-- /.nav-collapse -->
+		</div>
+	</div><!-- /navbar-inner -->
+</div>

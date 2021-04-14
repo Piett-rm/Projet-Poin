@@ -7,20 +7,36 @@ if (isset($_POST['Mots_de_passe'])) {
     include("../connexion.php");
 
     $sql = 'SELECT * from personne where Email=\'' . $_POST["mail_user"] . '\' and Mots_de_passe=\'' . $_POST["Mots_de_passe"] . '\'';
-
-
     $resultat = mysqli_query($conn, $sql);
 
     if ($resultat == FALSE) {
         die("<br>Echec d'execution de la requete : " . $sql);
     } else {
-        if (mysqli_num_rows($resultat) == 1) {
+        if (mysqli_num_rows($resultat) == 1) { //si la personne existe :
 
             $row = mysqli_fetch_array($resultat);
             $_SESSION['id_user'] = $row['IdPersonne'];
             $_SESSION['nom_user'] = $row['Nom'];
             $_SESSION['prenom_user'] = $row['Prenom'];
-            $_SESSION['type'] = "volontaire";
+            //si son id est ds volontaire : on set session type a volontaire
+            $sql = 'SELECT * from volontaire where IdPersonne=\'' . $_SESSION['id_user'] . '\'';
+            $resultat = mysqli_query($conn, $sql);
+            if ($resultat) { //si c un volontaire
+                if (mysqli_num_rows($resultat) == 1) {
+
+                    $_SESSION['type'] = "volontaire";
+                }
+            }/* else { //sinon, on check si c'est un superviseur
+                $sql = 'SELECT * from superviseur where IdSuperviseur=\'1\'';
+                $resultat = mysqli_query($conn, $sql);
+                if ($resultat!= FALSE) {
+                    $_SESSION['type'] = "A";
+                    if (mysqli_num_rows($resultat) == 1) {
+
+                        $_SESSION['type'] = "Superviseur";
+                    }
+                }
+            }*///ne marche pas
 
             $url = $_SERVER['HTTP_REFERER'];
             $tableau = explode("/", $url, -1);
@@ -32,9 +48,8 @@ if (isset($_POST['Mots_de_passe'])) {
             header("Location: $location");
             exit();
         }
-        }
-
     }
+}
 ?>
 
 
