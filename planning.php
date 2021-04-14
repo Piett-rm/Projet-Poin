@@ -16,7 +16,7 @@
     ?>
     <div id="en-tete">
         <?php include("./en-tete.php"); ?>
-    </div>*
+    </div>
 
 <?php
     $sql = "Select * FROM mission WHERE IdMission='1'";
