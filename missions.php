@@ -135,9 +135,9 @@ function is_volontaire()
                     } else {
                         echo '<td></td>';
                     }
-                    if ($_SESSION['id_user'] == is_superviseur()) {
-                        echo '<td><a href="">Editer</a></td>';
-                        echo '<td><a href="">Supprimer</a></td>';
+                    if ((is_superviseur() == $row['IdSuperviseur']) or is_adminitrateur(is_superviseur())) {
+                        echo '<td><a href="./missions.php?vu=5&i=' . $row['IdMission'] . '">Editer</a></td>';
+                        echo '<td><a href="./missions.php?vu=4&i=' . $row['IdMission'] . '">Supprimer</a></td>';
                     };
 
                     echo '</tr>';
@@ -161,6 +161,8 @@ function is_volontaire()
                         <legend> Lieu du rendez-vous </legend>
                         <label for="Ville">Ville</label>
                         <input type="text" id="Ville" name="Ville"><br>
+                        <label for="Code_Postal">Code Postal</label>
+                        <input type="number" id="Code_Postal" name="Code_Postal"><br>
                         <label for="Rue">Nom de la rue</label>
                         <input type="text" id="Rue" name="Rue"><br>
                         <label for="Address">Numéro du batîment</label>
@@ -187,6 +189,10 @@ function is_volontaire()
                     $erreur = True;
                     echo "La date est déjà passée.<br>";
                 }
+                $_POST['Date'] = str_replace('/','-',$_POST['Date']);
+                $_POST['Ville'] = str_replace("'","\'",$_POST['Ville']);
+                $_POST['Rue'] = str_replace("'","\'",$_POST['Rue']);
+                $_POST['Description'] = str_replace("'","\'",$_POST['Description']);
                 if (!test_string($_POST['Ville'], 58)) {
                     $erreur = True;
                     echo "Le nom de la ville est trop grand.<br>";
@@ -199,22 +205,18 @@ function is_volontaire()
                     $erreur = True;
                     echo "La Description est limitée à 500 lettres.<br>";
                 }
+
                 if ($erreur) {
                     echo '<form action="./missions.php?vu=2" method="post">';
                     echo '<input type="submit" value="Retour vers la création de Mission">';
                     echo '</form>';
                 } else {
-                    /*
-                Vérifié si toute les informations sont présentes v
-                    renvois case 2 si des infos sont absente v
-		                peut-être sauvegarder les infos (si temps)
-                Vérifié si toute les informations sont valides. v
-                insert dans BD x
-                */
+                    
                     $id = is_superviseur();
-                    $sql = "insert into mission(Description, Nombre_Volontaire, Date_Mission, Numero_rue, Rue, Ville, Points, IdSuperviseur) values('";
+                    $sql = "insert into mission(Description, Nombre_Volontaire, Date_Mission, Numero_rue, Rue, Ville, Code_Postal, Points, IdSuperviseur) values('";
                     $sql = $sql . $_POST['Description'] . "', " . $_POST['Nombre_v'] . ", '" . $_POST['Date'] . "', " . $_POST['Address'] . ", '" . $_POST['Rue'];
-                    $sql = $sql . "', '" . $_POST['Ville'] . "', " . $_POST['Points'] . ", " . $id . ");";
+                    $sql = $sql . "', '" . $_POST['Ville'] . "', " . $_POST['Code_Postal'] . ", " . $_POST['Points'] . ", " . $id . ");";
+                    //echo $sql;
                     $requete = mysqli_query($conn, $sql);
                     if ($requete == FALSE) {
                         echo mysqli_error($conn);
@@ -223,7 +225,88 @@ function is_volontaire()
                 break;
 
             case "4":
+                $sql = "delete from mission where IdMission = " . $_GET['i'] .";";
+                $requete = mysqli_query($conn, $sql);
+                    if ($requete == FALSE) {
+                        echo mysqli_error($conn);
+                    }
+                break;
 
+            case "5":
+                $sql = "select * from mission where IdMission = " . $_GET['i'] .";";
+                $requete = mysqli_query($conn, $sql);
+                $row = mysqli_fetch_assoc($requete);
+                ?>
+                <form action="./missions.php?vu=6" method="post">
+                    <label for="Date">Date</label>
+                    <input type="date" id="Date" name="Date" value= "<?php echo $row['Date_Mission'] ?>"><br>
+                    <label for="Nombre_v">Nombre de volontaires</label>
+                    <input type="number" id="Nombre_v" name="Nombre_v" value= "<?php echo $row['Nombre_Volontaire'] ?>"><br>
+                    <fieldset>
+                        <!-- un peu de CSS sera utile -->
+                        <legend> Lieu du rendez-vous </legend>
+                        <label for="Ville">Ville</label>
+                        <input type="text" id="Ville" name="Ville" value=" <?php echo $row['Ville'] ?>"><br>
+                        <label for="Code_Postal">Code Postal</label>
+                        <input type="number" id="Code_Postal" name="Code_Postal" value= "<?php echo $row['Code_Postal'] ?>"><br>
+                        <label for="Rue">Nom de la rue</label>
+                        <input type="text" id="Rue" name="Rue" value=" <?php echo $row['Rue'] ?>"><br>
+                        <label for="Address">Numéro du batîment</label>
+                        <input type="number" id="Address" name="Address" value= "<?php echo $row['Numero_rue'] ?>"><br>
+                    </fieldset>
+                    <label for="Description">Description de la Mission</label>
+                    <input type="text" id="Description" name="Description" value= "<?php echo $row['Description'] ?>"><br>
+                    <label for="Points">Valeur en nombre de points</label>
+                    <input type="number" id="Points" name="Points" value= "<?php echo $row['Points'] ?>"><br>
+                    <input type="submit" value="Valider">
+                </form>
+        <?php
+                break;
+            case "6":
+                $erreur = False;
+                foreach ($_POST as $key => $Value) {
+                    if (empty($Value)) {
+                        $erreur = True;
+                        echo "Il manque une valeur pour " . $key . "<br>";
+                    }
+                }
+                if (!date_futur($_POST['Date'])) {
+                    $erreur = True;
+                    echo "La date est déjà passée.<br>";
+                }
+                $_POST['Date'] = str_replace('/','-',$_POST['Date']);
+                $_POST['Ville'] = str_replace("'","\'",$_POST['Ville']);
+                $_POST['Rue'] = str_replace("'","\'",$_POST['Rue']);
+                $_POST['Description'] = str_replace("'","\'",$_POST['Description']);
+                if (!test_string($_POST['Ville'], 58)) {
+                    $erreur = True;
+                    echo "Le nom de la ville est trop grand.<br>";
+                }
+                if (!test_string($_POST['Rue'], 164)) {
+                    $erreur = True;
+                    echo "Le nom de la rue est trop grand.<br>";
+                }
+                if (!test_string($_POST['Description'], 500)) {
+                    $erreur = True;
+                    echo "La Description est limitée à 500 lettres.<br>";
+                }
+
+                if ($erreur) {
+                    echo '<form action="./missions.php?vu=5" method="post">';
+                    echo '<input type="submit" value="Retour vers la modification de la Mission">';
+                    echo '</form>';
+                } else {
+                    
+                    $id = is_superviseur();
+                    $sql = "update mission set Description = '". $_POST['Description'] . "',  Nombre_Volontaire = " . $_POST['Nombre_v'] .", Date_Mission =  '" . $_POST['Date'] . "', Numero_rue = " . $_POST['Address'] . ", Rue = '". $_POST['Rue'];
+                    $sql = $sql . "', Ville = '" . $_POST['Ville'] . "', Code_Postal = " . $_POST['Code_Postal'] . ", Points = " . $_POST['Points'] . ", IdSuperviseur = " . $id . ";";
+                    //echo $sql;
+                    $requete = mysqli_query($conn, $sql);
+                    if ($requete == FALSE) {
+                        echo mysqli_error($conn);
+                    }
+                }
+                break;
                 break;
         }
         ?>
