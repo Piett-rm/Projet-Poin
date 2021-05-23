@@ -111,6 +111,7 @@ function is_volontaire()
                     <td> - </td>
 
                     <?php
+                    
                     if (is_superviseur()) {
                         echo '<td>Editer</td>';
                         echo '<td>Supprimer</td>';
@@ -137,7 +138,7 @@ function is_volontaire()
                     }
                     if ((is_superviseur() == $row['IdSuperviseur']) or is_adminitrateur(is_superviseur())) {
                         echo '<td><a href="./missions.php?vu=5&i=' . $row['IdMission'] . '">Editer</a></td>';
-                        echo '<td><a href="./missions.php?vu=4&i=' . $row['IdMission'] . '">Supprimer</a></td>';
+                        echo '<td><a href="./mission_supp.php?i=' . $row['IdMission'] . '">Supprimer</a></td>';
                     };
 
                     echo '</tr>';
@@ -224,14 +225,6 @@ function is_volontaire()
                 }
                 break;
 
-            case "4":
-                $sql = "delete from mission where IdMission = " . $_GET['i'] .";";
-                $requete = mysqli_query($conn, $sql);
-                    if ($requete == FALSE) {
-                        echo mysqli_error($conn);
-                    }
-                break;
-
             case "5":
                 $sql = "select * from mission where IdMission = " . $_GET['i'] .";";
                 $requete = mysqli_query($conn, $sql);
@@ -258,6 +251,7 @@ function is_volontaire()
                     <input type="text" id="Description" name="Description" value= "<?php echo $row['Description'] ?>"><br>
                     <label for="Points">Valeur en nombre de points</label>
                     <input type="number" id="Points" name="Points" value= "<?php echo $row['Points'] ?>"><br>
+                    <input type="hidden" id="Mission" name="Mission" value="<?php echo $_GET['i'] ?>">
                     <input type="submit" value="Valider">
                 </form>
         <?php
@@ -292,14 +286,14 @@ function is_volontaire()
                 }
 
                 if ($erreur) {
-                    echo '<form action="./missions.php?vu=5" method="post">';
+                    echo '<form action="./missions.php?vu=5&i='.$_POST['Mission'].'" method="post">';
                     echo '<input type="submit" value="Retour vers la modification de la Mission">';
                     echo '</form>';
                 } else {
                     
                     $id = is_superviseur();
                     $sql = "update mission set Description = '". $_POST['Description'] . "',  Nombre_Volontaire = " . $_POST['Nombre_v'] .", Date_Mission =  '" . $_POST['Date'] . "', Numero_rue = " . $_POST['Address'] . ", Rue = '". $_POST['Rue'];
-                    $sql = $sql . "', Ville = '" . $_POST['Ville'] . "', Code_Postal = " . $_POST['Code_Postal'] . ", Points = " . $_POST['Points'] . ", IdSuperviseur = " . $id . ";";
+                    $sql = $sql . "', Ville = '" . $_POST['Ville'] . "', Code_Postal = " . $_POST['Code_Postal'] . ", Points = " . $_POST['Points'] . ", IdSuperviseur = " . $id . " where IdMission = ". $_POST['Mission'] .";";
                     //echo $sql;
                     $requete = mysqli_query($conn, $sql);
                     if ($requete == FALSE) {
@@ -329,7 +323,7 @@ function date_futur($date_string)
 
 function test_string($string, $taille)
 {
-    if (strlen($string) <= $taille) {
+    if (strlen($string) <= $taille and strlen($string) > 0) {
         return TRUE;
     }
     return FALSE;
@@ -340,6 +334,6 @@ function test_string($string, $taille)
 /* Plan de modification ;
     selection des missions dans le même departement que le volontaire inutile
     selection des missions que le superviseur a créé (si non administrateur) fait
-    modification et suppression des missions
+    modification et suppression des missions fait
 */
 ?>
