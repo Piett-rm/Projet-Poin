@@ -104,6 +104,7 @@ function is_volontaire()
                 <tr>
                     <td>Date</td>
                     <td>Ville</td>
+                    <td>Code Postal</td>
                     <td>Points</td>
                     <td>Description</td>
                     <td>Lieu</td>
@@ -127,6 +128,7 @@ function is_volontaire()
 
                     echo '<td>' . $row['Date_Mission'] . '</td>';
                     echo '<td>' . $row['Ville'] . '</td>';
+                    echo '<td>' . $row['Code_Postal'] . '</td>';
                     echo '<td>' . $row['Points'] . '</td>';
                     echo '<td>' . $row['Description'] . '</td>';
                     echo '<td>' . $row['Numero_rue'] . ' ' . $row['Rue'] . '</td>';
