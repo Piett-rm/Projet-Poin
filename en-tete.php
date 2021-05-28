@@ -22,7 +22,7 @@
         <div class="col-2 align-self-start">
             <img src="./logo.png" alt="Logo du Poin" width="100%">
         </div>
-        <div class="col-8 center-block text-center">
+        <div class="col-8 center-block align-self-center">
             <h1 class="text-center bolder-weight-text" id="text-camping">Green Wifi Corp</h1>
         </div>
         <div class="col-2 right-block text-right">

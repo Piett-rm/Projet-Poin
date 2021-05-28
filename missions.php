@@ -102,10 +102,11 @@ function is_volontaire()
         <?php include("./en-tete.php"); ?>
     </div>
     <?php
-    include("./nav-bar.php");
-    echo '<br>Bienvenue sur la page des missions' . ' ' . $_SESSION['prenom_user'] . ' ' . $_SESSION['nom_user'] . '<br><br>';
-
-
+    include("./nav-bar.php");?>
+    <div class="intro">
+    <?php echo '<br>Bienvenue sur la page des missions' . ' ' . $_SESSION['prenom_user'] . ' ' . $_SESSION['nom_user'] . '<br><br>';?>
+    </div>
+    <?php
     switch ($_GET['vu']) {
         case "1":
 
