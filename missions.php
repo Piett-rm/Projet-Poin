@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="missions.css" />
+</head>
+
+<body>
+    
+
 <?php
 session_start(); //pour demarrer la session
 
@@ -100,40 +114,65 @@ function is_volontaire()
             //on affiche les missions
 
     ?>
-            <table border=1>
-                <tr>
-                    <td>Date</td>
-                    <td>Ville</td>
-                    <td>Code Postal</td>
-                    <td>Points</td>
-                    <td>Description</td>
-                    <td>Lieu</td>
-                    <td>Places Disponibles</td>
-                    <td> - </td>
-
-                    <?php
-                    
-                    if (is_superviseur()) {
-                        echo '<td>Editer</td>';
-                        echo '<td>Supprimer</td>';
-                    }
-                    ?>
+    <style>
+        .tableau{
+            border-collapse: collapse;
+            margin: auto;
+            font-size: 0.95em;
+            width: 70%;
+        }
+        .tableau thead tr{
+            background-color: #009879;
+            color: #ffffff;
+            font-weight: bold;
+            text-align: center;
+        }
+        .tableau th{
+            padding: 12px;
+        }
+        .tableau tbody tr{
+            border-bottom: 1px solid #dddddd;
+            text-align: center;
+            
+        }
+        .tableau td{
+            padding: 12px;
+        }
+        .tableau tr:nth-of-type(even){
+            background-color: #f2f3f3;
+        }
+        .tableau tr:nth-last-child(-n+1){
+            border-bottom: 2px solid #009879;
+        }
+    </style>
+            <table class="tableau">
+            <thead>
+                <tr>           
+                    <th>Date</th>
+                    <th>Ville</th>
+                    <th>Code Postal</th>
+                    <th>Points</th>
+                    <th>Description</th>
+                    <th>Lieu</th>
+                    <th>Places Disponibles</th>                  
                 </tr>
-
+            </thead>
                 <?php
 
-                while ($row = mysqli_fetch_assoc($requete)) {
+                while ($row = mysqli_fetch_assoc($requete)) {?>
+                    
 
-                    echo '<tr>';
+                    <tr>
+                    <td><?= $row['Date_Mission'] ?></td>
+                    <td><?= $row['Ville']?></td>
+                    <td><?= $row['Code_Postal']?></td>
+                    <td><?= $row['Points']?></td>
+                    <td><?= $row['Description']?></td>
+                    <td><?= $row['Numero_rue'] . ' ' . $row['Rue'] . '</td>'; ?>
+                    <td><?= $row['Nombre_Volontaire']?></td>
 
-                    echo '<td>' . $row['Date_Mission'] . '</td>';
-                    echo '<td>' . $row['Ville'] . '</td>';
-                    echo '<td>' . $row['Code_Postal'] . '</td>';
-                    echo '<td>' . $row['Points'] . '</td>';
-                    echo '<td>' . $row['Description'] . '</td>';
-                    echo '<td>' . $row['Numero_rue'] . ' ' . $row['Rue'] . '</td>';
-                    echo '<td>' . $row['Nombre_Volontaire'] . '</td>';
-                    if (is_volontaire()) {
+
+                    <?php if (is_volontaire()) {
                         echo '<td>' . '<a href="./confirmation.php?i=t&mission=' . $row['IdMission'] . '">S\'inscrire</a> </td>'; //i(nscription)=t(rue)&mission=[idMission]
                     } else {
                         echo '<td></td>';
@@ -146,11 +185,24 @@ function is_volontaire()
                     echo '</tr>';
                 }
                 echo '</table>';
-
-                if (is_superviseur()) {
-                    echo '<a href="./missions.php?vu=2">Nouvelle Mission</a>';
+                ?>
+                <style>
+                .nouvelle_mission{
+                    text-align: center;
+                    margin-left: 15%;
+                    margin-top: 10px;
+                    border-style: outset;
+                    height: 40px;
+                    width: 160px;
+                    background-color: #f2f3f3;
                 }
-                break;
+                </style>
+                <?php
+                if (is_superviseur()) {?>
+                    <div class="nouvelle_mission">
+                    <?php echo '<a href="./missions.php?vu=2">Nouvelle Mission</a>';}?>      
+                    </div>
+                <?php break;
 
             case "2":
                 ?>
@@ -339,3 +391,5 @@ function test_string($string, $taille)
     modification et suppression des missions fait
 */
 ?>
+</body>
+</html>
