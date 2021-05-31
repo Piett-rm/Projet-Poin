@@ -23,7 +23,7 @@ if (!isset($_GET['vu'])) {
 
 <head>
     <meta charset="UTF-8">
-    <title> Accueil </title>
+    <title> Mon compte </title>
     <link rel="stylesheet" href="mon_compte.css" />
 </head>
 
@@ -45,7 +45,7 @@ if (!isset($_GET['vu'])) {
     if ($resultat == FALSE) {
         die("<br>Echec d'execution de la requete : " . $sql);
     } elseif (mysqli_num_rows($resultat) == 1) {
-        $row = mysqli_fetch_assoc($resultat);
+        $row = mysqli_fetch_assoc($resultat);}
     ?>
 
         <div class="compte">
@@ -67,5 +67,8 @@ if (!isset($_GET['vu'])) {
             <input type="hidden" name="IdPersonne" value="<?php echo $row['IdPersonne'] ?>">
         </form>
         </div>
-    <?php
-    }
+        
+    
+    
+    </body>
+</html>

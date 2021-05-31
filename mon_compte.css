@@ -4,6 +4,7 @@
     border-top: 20px;
     height: 400px;
     width: 400px;
+    align-self: center;
     background-color: #e3e5e8;
     border-color: #009879;
 }

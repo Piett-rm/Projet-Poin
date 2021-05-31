@@ -68,7 +68,7 @@ if (isset($_POST['Mots_de_passe'])) {
     <meta charset="utf-8" />
     <meta http-equiv="Expires" content="0">
     <title>Login</title>
-    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="login.css" />
 </head>
 
 <body>
@@ -99,14 +99,16 @@ if (isset($_POST['Mots_de_passe'])) {
 
                 if (!isset($_SESSION['id_user'])) {
                 ?>
+                    <h1 class="connexion">connexion</h1>
+                    <div class="login">
                     <form action="./login.php" method="post">
                         <label for="nom">Mail :</label>
                         <input type="text" id="mail_user" name="mail_user"><br><br>
                         <label for="password">Mot de passe :</label>
                         <input type="password" id="Mots_de_passe" name="Mots_de_passe"><br><br>
                         <input type="submit" value="Envoyer">
-
                     </form>
+                    </div>
 
                 <?php
                 }
