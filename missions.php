@@ -155,7 +155,9 @@ function is_volontaire()
                     <th>Points</th>
                     <th>Description</th>
                     <th>Lieu</th>
-                    <th>Places Disponibles</th>                  
+                    <th>Places Disponibles</th>
+                    <th></th>
+                    <th></th>                 
                 </tr>
             </thead>
                 <?php
