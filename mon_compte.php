@@ -63,7 +63,7 @@ if (!isset($_GET['vu'])) {
             <label class="nom_utilisateur" for="Nom_Utilisateur">Nom d'utilisateur :</label>
             <input type="text" id="Nom_Utilisateur" name="Nom_Utilisateur" value="<?php echo $row['Nom_Utilisateur'] ?>"><br><br>
             <label class="mot_de_passe" for="Mots_de_passe">Mot de passe :</label>
-            <input type="text" id="Mots_de_passe" name="Mots_de_passe" value="<?php echo $row['Telephone'] ?>"><br><br>
+            <input type="text" id="Mots_de_passe" name="Mots_de_passe" value="<?php echo $row['Mots_de_passe'] ?>"><br><br>
             <input type="hidden" name="IdPersonne" value="<?php echo $row['IdPersonne'] ?>">
         </form>
         </div>
