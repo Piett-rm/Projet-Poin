@@ -6,6 +6,7 @@
     margin: auto;
     background-color: #f2f3f3;
     border-color: #009879;
+    margin-bottom: 20px;
 }
 .nom{
     margin-top: 40px;
@@ -30,6 +31,7 @@
     margin-left: 20%;
 }
 .mes_infos{
+    border-top: 20px;
     border-bottom: 25px;
     text-align: center;
 }
