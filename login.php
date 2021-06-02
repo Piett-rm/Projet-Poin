@@ -102,11 +102,11 @@ if (isset($_POST['Mots_de_passe'])) {
                     <h1 class="connexion">connexion</h1>
                     <div class="login">
                     <form action="./login.php" method="post">
-                        <label for="nom">Mail :</label>
+                        <label class="mail" for="nom">Mail :</label>
                         <input type="text" id="mail_user" name="mail_user"><br><br>
-                        <label for="password">Mot de passe :</label>
+                        <label class="mot_de_passe" for="password">Mot de passe :</label>
                         <input type="password" id="Mots_de_passe" name="Mots_de_passe"><br><br>
-                        <input type="submit" value="Envoyer">
+                        <input class="envoyer" type="submit" value="Envoyer">
                     </form>
                     </div>
 

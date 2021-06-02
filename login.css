@@ -1,10 +1,23 @@
 .login{
-    border-style: solid;
+    border: solid;
     border-width: 4px;
     border-top: 30px;
     height: 300px;
     width: 500px;
+    background-color: #f2f3f3;
+    border-color: #009879;
+    margin: auto;
 }
 .connexion{
-    
+    text-align: center;
+    margin-bottom: 20px;
+}
+.mail{
+    margin-left: 20%;
+}
+.mot_de_passe{
+    margin-left: 20%;
+}
+.envoyer{
+    margin-left: 20%;
 }

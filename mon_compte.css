@@ -1,32 +1,35 @@
 .compte{
     border-style: double;
     border-width: 4px;
-    border-top: 20px;
-    height: 400px;
-    width: 400px;
-    align-self: center;
-    background-color: #e3e5e8;
+    height: 440px;
+    width: 500px;
+    margin: auto;
+    background-color: #f2f3f3;
     border-color: #009879;
 }
 .nom{
-    margin-top: 20px;
-    margin-left: 10px;
+    margin-top: 40px;
+    margin-left: 20%;
 }
 .prenom{
-    margin-left: 10px;
+    margin-left: 20%;
 }
 .mail{
-    margin-left: 10px;
+    margin-left: 20%;
 }
 .telephone{
-    margin-left: 10px;
+    margin-left: 20%;
 }
 .code_postal{
-    margin-left: 10px;
+    margin-left: 20%;
 }
 .nom_utilisateur{
-    margin-left: 10px;
+    margin-left: 20%;
 }
 .mot_de_passe{
-    margin-left: 10px;
+    margin-left: 20%;
+}
+.mes_infos{
+    border-bottom: 25px;
+    text-align: center;
 }

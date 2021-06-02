@@ -47,7 +47,7 @@ if (!isset($_GET['vu'])) {
     } elseif (mysqli_num_rows($resultat) == 1) {
         $row = mysqli_fetch_assoc($resultat);}
     ?>
-
+        <h2 class="mes_infos">Mes informations</h2>
         <div class="compte">
         <form action="mon_compte.php" method="get">
             <label class="nom" for="Nom">Nom :</label>
