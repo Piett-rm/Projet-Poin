@@ -68,7 +68,7 @@ if (isset($_POST['Mots_de_passe'])) {
     <meta charset="utf-8" />
     <meta http-equiv="Expires" content="0">
     <title>Login</title>
-    <link rel="stylesheet" href="login.css" />
+    <link rel="stylesheet" type="text/css" href="login.css" />
 </head>
 
 <body>
