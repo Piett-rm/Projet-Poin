@@ -82,16 +82,7 @@ function is_volontaire()
 
 ?>
 
-<!DOCTYPE html>
-<html lang="fr">
 
-<head>
-    <meta charset="UTF-8">
-    <title> Accueil </title>
-    <link rel="stylesheet" href="styles.css" />
-</head>
-
-<body>
 
 
     <?php
@@ -144,6 +135,9 @@ function is_volontaire()
         }
         .tableau tr:nth-last-child(-n+1){
             border-bottom: 2px solid #009879;
+        }
+        .intro{
+            text-align: center;
         }
     </style>
             <table class="tableau">

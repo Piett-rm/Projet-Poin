@@ -99,7 +99,7 @@ if (isset($_POST['Mots_de_passe'])) {
 
                 if (!isset($_SESSION['id_user'])) {
                 ?>
-                    <h1 class="connexion">connexion</h1>
+                    <h1 class="connexion">Connexion</h1>
                     <div class="login_connexion">
                     <form action="./login.php" method="post">
                         <label class="mail" for="nom">Mail :</label>

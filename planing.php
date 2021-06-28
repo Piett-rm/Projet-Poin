@@ -58,7 +58,6 @@ if (isset($_GET['logout'])) {
         color: #ffffff;
         font-weight: bold;
         text-align: center;
-        
     }
     .table th{
         padding: 12px;
