@@ -87,5 +87,7 @@ on va faire le carré de connexion
 <footer>
 	<p id="test"> ici on a le footer </p>
 </footer>
-
+<?php
+include("./footer.html");
+?>
 </html>
