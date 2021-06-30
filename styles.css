@@ -30,7 +30,6 @@
 
 #news{
     display:flex;
-    background-color:red;
     border-width:1px;
     border-style:dotted;
     border-color:black;

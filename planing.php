@@ -41,65 +41,68 @@ if (isset($_GET['logout'])) {
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         die("<br>Echec d'execution de la requete : " . $sql);
-    } else {
-        echo "resultat ok";
     }
     ?>
 
     <style>
-    .table{
-        border-collapse: collapse;
-        margin: auto;
-        font-size: 0.95em;
-        width: 60%;
-    }
-    .table thead tr{
-        background-color: #009879;
-        color: #ffffff;
-        font-weight: bold;
-        text-align: center;
-    }
-    .table th{
-        padding: 12px;
-    }
-    .table tbody tr{
-        border-bottom: 1px solid #dddddd;
-        text-align: center;
-        
-    }
-    .table td{
-        padding: 12px;
-    }
-    .table tr:nth-of-type(even){
-        background-color: #f2f3f3;
-    }
-    .table tr:nth-last-child(-n+1){
-        border-bottom: 2px solid #009879;
-    }
+        .table {
+            border-collapse: collapse;
+            margin: auto;
+            font-size: 0.95em;
+            width: 60%;
+        }
+
+        .table thead tr {
+            background-color: #009879;
+            color: #ffffff;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .table th {
+            padding: 12px;
+        }
+
+        .table tbody tr {
+            border-bottom: 1px solid #dddddd;
+            text-align: center;
+
+        }
+
+        .table td {
+            padding: 12px;
+        }
+
+        .table tr:nth-of-type(even) {
+            background-color: #f2f3f3;
+        }
+
+        .table tr:nth-last-child(-n+1) {
+            border-bottom: 2px solid #009879;
+        }
     </style>
 
     <table class="table">
-    <thead>
-        <tr>
-            <th>Date</th>
-            <th>Ville</th>
-            <th>Points</th>
-            <th>Description</th>
-            <th>Lieu</th>
-        </tr>
-    </thead>
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Ville</th>
+                <th>Points</th>
+                <th>Description</th>
+                <th>Lieu</th>
+            </tr>
+        </thead>
         <?php
-        while ($row = mysqli_fetch_assoc($resultat)) {?>
+        while ($row = mysqli_fetch_assoc($resultat)) { ?>
             //mettre une sous requete pour trier par ordre chronologique
             <tr>
 
-            <td><?=$row['Date_Mission']?></td>
-            <td><?=$row['Ville']?></td>
-            <td><?=$row['Points']?></td>
-            <td><?=$row['Description']?></td>
-            <td><?=$row['Numero_rue'] . ' ' . $row['Rue'] . '</td>';?>
+                <td><?= $row['Date_Mission'] ?></td>
+                <td><?= $row['Ville'] ?></td>
+                <td><?= $row['Points'] ?></td>
+                <td><?= $row['Description'] ?></td>
+                <td><?= $row['Numero_rue'] . ' ' . $row['Rue'] . '</td>'; ?>
 
             </tr>
-            <?php } ?>
-        </table>
-        
+        <?php } ?>
+    </table>

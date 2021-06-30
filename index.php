@@ -61,10 +61,10 @@ on va faire le carré de connexion
 	?>
 	<div id="corps">
 		<div id="explications">
-			<p>Notre projet a pour but écologique de dépolluer les rues, villages, villes du Liban et est basé sur le volontariat récompensé. Il permet également aux personnes les plus démunies d'accéder à internet et également d’avoir des réductions pour les transports en commun (bus, taxis collectifs).<br><br>
+			<p>Notre projet a pour but écologique de dépolluer les rues, villages, villes et est basé sur le volontariat récompensé. Il permet également aux personnes les plus démunies d'accéder à internet et également d’avoir des réductions pour les transports en commun (bus, taxis collectifs).<br><br>
 				Des événements pour dépolluer les rues sont organisés en échange de récompenses (Internet gratuit, bons de réductions pour les transports en communs, et autres …).
 				Sur un site internet les gens peuvent consulter les évènements à venir avec le lieu de départ et l’horaire et éventuellement s’y inscrire.
-				<br><br>Une fois sur place des groupes seront formés et dirigés (apporter personnellement des sacs poubelle) et une fois la dépollution terminée il faut ramener les sacs à un endroit précis et des points vous seront attribués ce qui vous permettra d’obtenir des récompenses (réductions sur les transports en commun, internet gratuit, etc…)
+				<br><br>Une fois sur place des groupes seront formés et dirigés (apporter personnellement des sacs poubelle) et une fois la dépollution terminée il faut ramener les sacs à un endroit précis et des points vous seront attribués ce qui vous permettra d’obtenir des récompenses
 			</p>
 
 		</div>
@@ -85,9 +85,9 @@ on va faire le carré de connexion
 </body>
 
 <footer>
-	<p id="test"> ici on a le footer </p>
+	<?php
+	include("./footer.html");
+	?>
 </footer>
-<?php
-include("./footer.html");
-?>
+
 </html>

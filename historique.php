@@ -41,8 +41,6 @@ if (isset($_GET['logout'])) {
     $resultat = mysqli_query($conn, $sql);
     if ($resultat == FALSE) {
         die("<br>Echec d'execution de la requete : " . $sql);
-    } else {
-        echo "resultat ok";
     }
     ?>
 
